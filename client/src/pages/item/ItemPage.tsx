@@ -103,6 +103,15 @@ const ItemPage = () => {
     try {
       await approveAd.mutateAsync(adId);
       toast.success('Объявление одобрено', 'Объявление успешно одобрено');
+      
+      // Автоматически переходим к следующему объявлению или возвращаемся к списку
+      if (navigationInfo.hasNext && navigationInfo.nextId) {
+        navigate(`/item/${navigationInfo.nextId}${location.search}`);
+      } else if (navigationInfo.hasPrev && navigationInfo.prevId) {
+        navigate(`/item/${navigationInfo.prevId}${location.search}`);
+      } else {
+        navigate(`/list${location.search}`);
+      }
     } catch (error) {
       toast.error('Ошибка', 'Не удалось одобрить объявление');
     }
@@ -118,6 +127,15 @@ const ItemPage = () => {
       setReason('Другое');
       setComment('');
       toast.success('Объявление отклонено', `Причина: ${reason}`);
+      
+      // Автоматически переходим к следующему объявлению или возвращаемся к списку
+      if (navigationInfo.hasNext && navigationInfo.nextId) {
+        navigate(`/item/${navigationInfo.nextId}${location.search}`);
+      } else if (navigationInfo.hasPrev && navigationInfo.prevId) {
+        navigate(`/item/${navigationInfo.prevId}${location.search}`);
+      } else {
+        navigate(`/list${location.search}`);
+      }
     } catch (error) {
       toast.error('Ошибка', 'Не удалось отклонить объявление');
     }
@@ -134,6 +152,15 @@ const ItemPage = () => {
       setReason('Другое');
       setComment('');
       toast.warning('Отправлено на доработку', 'Объявление возвращено продавцу');
+      
+      // Автоматически переходим к следующему объявлению или возвращаемся к списку
+      if (navigationInfo.hasNext && navigationInfo.nextId) {
+        navigate(`/item/${navigationInfo.nextId}${location.search}`);
+      } else if (navigationInfo.hasPrev && navigationInfo.prevId) {
+        navigate(`/item/${navigationInfo.prevId}${location.search}`);
+      } else {
+        navigate(`/list${location.search}`);
+      }
     } catch (error) {
       toast.error('Ошибка', 'Не удалось вернуть объявление на доработку');
     }
