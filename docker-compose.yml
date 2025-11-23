@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Backend сервер
+  server:
+    build:
+      context: ./tech-int3-server
+      dockerfile: Dockerfile
+    container_name: avito-moderation-server
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - avito-network
+    restart: unless-stopped
+
+  # Frontend клиент
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: avito-moderation-client
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    networks:
+      - avito-network
+    restart: unless-stopped
+
+networks:
+  avito-network:
+    driver: bridge
+
+
+
+
+
+
