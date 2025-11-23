@@ -99,18 +99,6 @@ const ItemPage = () => {
     };
   }, [adsData, adId]);
 
-  const navigateAfterModeration = () => {
-    const { nextId, prevId, hasNext, hasPrev } = navigationInfo;
-    
-    if (hasNext && nextId) {
-      navigate(`/item/${nextId}${location.search}`);
-    } else if (hasPrev && prevId) {
-      navigate(`/item/${prevId}${location.search}`);
-    } else {
-      navigate(`/list${location.search}`);
-    }
-  };
-
   const handleApprove = async () => {
     try {
       await approveAd.mutateAsync(adId);
